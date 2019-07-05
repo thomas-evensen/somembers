@@ -2,11 +2,11 @@
   <div class="layout">
     <header class="header">
       <strong>
-        <g-link to="/">{{ $static.metaData.siteName }}</g-link>
+        <a href="https://www.socentral.no">{{ $static.metaData.siteName }}</a>
       </strong>
       <nav class="nav">
-        <g-link class="nav__link" to="/">Home</g-link>
-        <g-link class="nav__link" to="/about">About</g-link>
+        <g-link class="nav__link" to="/">Medlemmer</g-link>
+        <g-link class="nav__link" to="/teams">Virksomheter</g-link>
       </nav>
     </header>
     <slot/>

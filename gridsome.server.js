@@ -148,7 +148,7 @@ module.exports = function(api) {
             const teamImgUrl = fixImageUrl(item.image, false);
 
             // find team members and relevent values
-            let memberProps = {};
+            const memberProps = {};
             memberProps.members = [];
             for (const mItem of member) {
                 // skip the iteration if the member privacy is set to hidden
