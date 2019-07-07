@@ -42,26 +42,26 @@ module.exports = function(api) {
         // create members collection
         const members = store.addContentType({
             typeName: 'Member',
-            route: "member/:OID"
+            route: "member/:id"
         })
 
         // create teams collection
         const teams = store.addContentType({
             typeName: 'Team',
-            route: "team/:OID"
+            route: "team/:id"
         })
 
         // function to fix image urls
         const fixImageUrl = (url, isMember) => {
 
-            let fixedUrl = isMember ? "~/assets/default-profile.png" : "~/assets/default-team.png";
-
+            //let fixedUrl = isMember ? "~/assets/default-profile.png" : "~/assets/default-team.png";
+           
             if (typeof url == "string") {
                 const tmpUrl = url.replace(/^\/\//i, "https://");
                 fixedUrl = tmpUrl.replace("http:", "https:");
                 return fixedUrl
             }
-            return fixedUrl;
+            return;
         };
 
         const isProfileHidden = item => {
@@ -103,14 +103,14 @@ module.exports = function(api) {
             const privacyOptions = getPrivacyOptions(item.portalPrivacy);
 
             // edit the image urls to all start with https://      
-            const memberImgUrl = fixImageUrl(item.image, true);
+            //const memberImgUrl = fixImageUrl(item.image, true);
 
             // find member team and relevant values 
             let teamProps = {};
             for (const tItem of team) {
                 if (tItem._id == item.team) {
                     teamProps.name = tItem.name;
-                    teamProps.logo = fixImageUrl(tItem.image, false);
+                    teamProps.logo = tItem.image;//fixImageUrl(tItem.image, false);
                     teamProps.OID = tItem._id;
                     break;
                 }
@@ -122,7 +122,7 @@ module.exports = function(api) {
                 name: item.name,
                 email: item.email,
                 phone: item.phone,
-                image: memberImgUrl,
+                image: item.image, //memberImgUrl,
                 tags: item.tags,
                 created: item.createdAt,
                 bio: item.description,
@@ -145,7 +145,7 @@ module.exports = function(api) {
             const privacyOptions = getPrivacyOptions(item.portalPrivacy);
 
             // edit the image urls to all start with https://      
-            const teamImgUrl = fixImageUrl(item.image, false);
+            //const teamImgUrl = fixImageUrl(item.image, false);
 
             // find team members and relevent values
             const memberProps = {};
@@ -157,7 +157,7 @@ module.exports = function(api) {
                 if (mItem.team == item._id) {
                     memberProps.members.push({
                         name: mItem.name,
-                        image: fixImageUrl(mItem.image, true),
+                        image: mItem.image, //fixImageUrl(mItem.image, true),
                         OID: mItem._id
                     });
                 }
@@ -171,7 +171,7 @@ module.exports = function(api) {
                 twitter: item.twitterHandle,
                 email: item.email,
                 url: item.url,
-                logo: teamImgUrl,
+                logo: item.image, //teamImgUrl,
                 tags: item.tags,
                 customProps: item.properties,
                 privacy: privacyOptions,

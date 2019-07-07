@@ -10,6 +10,9 @@
     "axios": "^0.19.0",
     "axios-oauth-client": "^1.1.1",
     "axios-token-interceptor": "^0.1.0",
-    "gridsome": "^0.6.0"
+    "gridsome": "^0.6.6"
+  },
+  "devDependencies": {
+    "gridsome-plugin-tailwindcss": "^2.2.15"
   }
 }
