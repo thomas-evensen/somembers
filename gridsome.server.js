@@ -52,6 +52,18 @@ module.exports = function(api) {
         })
 
         // function to fix image urls
+
+        const setPriority = url => {
+
+            let priority = 3;
+
+            if (typeof url == "string") {
+                priority = url.match(/^\/\//i) ? 1 : 2;
+                priority = url.match(/^https:\/\/pbs.twimg.com/i) ? 1 : 2;
+            }
+            return priority;
+        };
+
         const fixImageUrl = (url, isMember) => {
 
             //let fixedUrl = isMember ? "~/assets/default-profile.png" : "~/assets/default-team.png";
@@ -116,6 +128,8 @@ module.exports = function(api) {
                 }
             }
 
+            let memberPriority = setPriority(item.image);
+console.log(memberPriority);
             // add values to the members collection
             members.addNode({
                 OID: item._id,
@@ -123,6 +137,7 @@ module.exports = function(api) {
                 email: item.email,
                 phone: item.phone,
                 image: item.image, //memberImgUrl,
+                priority: memberPriority,
                 tags: item.tags,
                 created: item.createdAt,
                 bio: item.description,
