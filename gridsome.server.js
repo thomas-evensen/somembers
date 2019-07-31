@@ -7,6 +7,7 @@
 
 const axios = require('axios');
 const oauth = require('axios-oauth-client');
+const slugify = require('slugify');
 
 module.exports = function(api) {
     api.loadSource(async store => {
@@ -42,38 +43,24 @@ module.exports = function(api) {
         // create members collection
         const members = store.addContentType({
             typeName: 'Member',
-            route: "member/:id"
+            route: ":slug_raw"
         })
 
         // create teams collection
         const teams = store.addContentType({
             typeName: 'Team',
-            route: "team/:id"
+            route: "team/:slug_raw"
         })
 
-        // function to fix image urls
-
+        // function to set priority so that profiles with images is shown before those without
         const setPriority = url => {
 
             let priority = 3;
 
             if (typeof url == "string") {
-                priority = url.match(/^\/\//i) ? 1 : 2;
-                priority = url.match(/^https:\/\/pbs.twimg.com/i) ? 1 : 2;
+                priority = url.startsWith("//") ? 1 : url.startsWith("http://pbs.twimg.com/") ? 1 : 2;
             }
             return priority;
-        };
-
-        const fixImageUrl = (url, isMember) => {
-
-            //let fixedUrl = isMember ? "~/assets/default-profile.png" : "~/assets/default-team.png";
-           
-            if (typeof url == "string") {
-                const tmpUrl = url.replace(/^\/\//i, "https://");
-                fixedUrl = tmpUrl.replace("http:", "https:");
-                return fixedUrl
-            }
-            return;
         };
 
         const isProfileHidden = item => {
@@ -83,7 +70,6 @@ module.exports = function(api) {
                 return false;
             } else {
                 return hide = item.hide ? true : false;
-                //return hide;
             }
             return false;
         }
@@ -114,29 +100,19 @@ module.exports = function(api) {
             // gets the privacy options
             const privacyOptions = getPrivacyOptions(item.portalPrivacy);
 
-            // edit the image urls to all start with https://      
-            //const memberImgUrl = fixImageUrl(item.image, true);
-
-            // find member team and relevant values 
-            let teamProps = {};
-            for (const tItem of team) {
-                if (tItem._id == item.team) {
-                    teamProps.name = tItem.name;
-                    teamProps.logo = tItem.image;//fixImageUrl(tItem.image, false);
-                    teamProps.OID = tItem._id;
-                    break;
-                }
-            }
-
+            // gets view order priorities
             let memberPriority = setPriority(item.image);
-console.log(memberPriority);
+
+            // slugify the member name to use as route
+            let slug = slugify(item.name);
+
             // add values to the members collection
             members.addNode({
-                OID: item._id,
+                slug: slug,
                 name: item.name,
                 email: item.email,
                 phone: item.phone,
-                image: item.image, //memberImgUrl,
+                image: item.image,
                 priority: memberPriority,
                 tags: item.tags,
                 created: item.createdAt,
@@ -145,9 +121,8 @@ console.log(memberPriority);
                 twitter: item.twitterHandle,
                 linkedin: item.linkedin,
                 privacy: privacyOptions,
-                team: teamProps
+                team: item.team
             });
-
         }
 
         // store data in teams collection by iterating team data
@@ -159,8 +134,11 @@ console.log(memberPriority);
             // gets the privacy options
             const privacyOptions = getPrivacyOptions(item.portalPrivacy);
 
-            // edit the image urls to all start with https://      
-            //const teamImgUrl = fixImageUrl(item.image, false);
+            // gets view order priorities
+            let teamPriority = setPriority(item.image);
+
+            // slugify the team name to use as route
+            let slug = slugify(item.name);
 
             // find team members and relevent values
             const memberProps = {};
@@ -172,27 +150,27 @@ console.log(memberPriority);
                 if (mItem.team == item._id) {
                     memberProps.members.push({
                         name: mItem.name,
-                        image: mItem.image, //fixImageUrl(mItem.image, true),
-                        OID: mItem._id
+                        image: mItem.image,
+                        _id: mItem._id
                     });
                 }
             }
 
             teams.addNode({
-                OID: item._id,
+                slug: slug,
                 name: item.name,
                 start: item.startDate,
                 bio: item.description,
                 twitter: item.twitterHandle,
                 email: item.email,
                 url: item.url,
-                logo: item.image, //teamImgUrl,
+                logo: item.image,
                 tags: item.tags,
+                priority: teamPriority,
                 customProps: item.properties,
                 privacy: privacyOptions,
                 teamMembers: memberProps
             })
         }
-
     })
 }

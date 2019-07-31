@@ -26,8 +26,8 @@ query Member ($id: String!){
     phone
     team {
     name
-    logo
-    OID
+    image
+    _id
 	}
   }
 }
