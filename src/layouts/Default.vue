@@ -1,15 +1,11 @@
 <template>
   <div>
     <header>
-      <strong>
-        <a href="https://www.socentral.no">{{ $static.metaData.siteName }}</a>
-      </strong>
-      <nav>
-        <g-link to="/">Medlemmer</g-link>
-        <g-link to="/teams">Virksomheter</g-link>
-      </nav>
+      <a href="https://www.socentral.no">
+        <img src="../assets/logo.png" width="150" />
+      </a>
     </header>
-    <slot/>
+    <slot />
   </div>
 </template>
 
@@ -21,6 +17,12 @@ query {
 }
 </static-query>
 
-<style>
-
+<style scoped>
+header {
+  height: 100px;
+  width: 100%;
+  position: relative;
+  top: 25px;
+  left: 25px;
+}
 </style>

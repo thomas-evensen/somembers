@@ -9,7 +9,7 @@ const axios = require('axios');
 const oauth = require('axios-oauth-client');
 const slugify = require('slugify');
 
-module.exports = function(api) {
+module.exports = function (api) {
     api.loadSource(async store => {
 
         // Get OAuth 2 token
@@ -27,14 +27,18 @@ module.exports = function(api) {
         const headerAuth = `Bearer ${auth.access_token}`;
 
         // Get member data
-        const { data: member } = await axios.get(process.env.API_MEMBERS_URL, {
+        const {
+            data: member
+        } = await axios.get(process.env.API_MEMBERS_URL, {
             headers: {
                 Authorization: headerAuth
             }
         });
 
         // Get team data
-        const { data: team } = await axios.get(process.env.API_TEAMS_URL, {
+        const {
+            data: team
+        } = await axios.get(process.env.API_TEAMS_URL, {
             headers: {
                 Authorization: headerAuth
             }
@@ -95,7 +99,9 @@ module.exports = function(api) {
         for (const item of member) {
 
             // skip member if privacy is set to hidden
-            if (isProfileHidden(item.portalPrivacy)) { continue }
+            if (isProfileHidden(item.portalPrivacy)) {
+                continue
+            }
 
             // gets the privacy options
             const privacyOptions = getPrivacyOptions(item.portalPrivacy);
@@ -112,7 +118,7 @@ module.exports = function(api) {
                 name: item.name,
                 email: item.email,
                 phone: item.phone,
-                image: item.image,
+                image: "https://axvpdemhen.cloudimg.io/height/400/n/" + item.image,
                 priority: memberPriority,
                 tags: item.tags,
                 created: item.createdAt,
@@ -129,7 +135,9 @@ module.exports = function(api) {
         for (const item of team) {
 
             // skip team if privacy is set to hidden
-            if (isProfileHidden(item.portalPrivacy)) { continue }
+            if (isProfileHidden(item.portalPrivacy)) {
+                continue
+            }
 
             // gets the privacy options
             const privacyOptions = getPrivacyOptions(item.portalPrivacy);
@@ -145,7 +153,9 @@ module.exports = function(api) {
             memberProps.members = [];
             for (const mItem of member) {
                 // skip the iteration if the member privacy is set to hidden
-                if (isProfileHidden(mItem.portalPrivacy)) { continue }
+                if (isProfileHidden(mItem.portalPrivacy)) {
+                    continue
+                }
 
                 if (mItem.team == item._id) {
                     memberProps.members.push({

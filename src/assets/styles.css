@@ -1,13 +1,11 @@
 .cutText {
     text-overflow: ellipsis;
-
-    /* Required for text-overflow to do anything */
     white-space: nowrap;
     overflow: hidden;
 }
 
 body {
-    background-color: #eef2f6;
+    background-color: rgb(250, 250, 250);
     font-family: 'Open Sans', 'Source Sans Pro', sans-serif;
 }
 
