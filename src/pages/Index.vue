@@ -11,12 +11,7 @@
       <form>
         <div>
           <div>
-            <input
-              type="text"
-              placeholder="Enter keyword  ..."
-              v-model="search"
-              v-on:keyup="getfilteredData"
-            />
+            <input type="text" placeholder="Enter keyword  ..." v-model="search" />
           </div>
         </div>
       </form>
@@ -58,19 +53,9 @@ export default {
   components: {
     "member-card": MemberCard
   },
-  computed: {
-    selectedFilters: function() {
-      let filters = [];
-      let checkedFilters = this.stacks.filter(obj => obj.checked);
-      checkedFilters.forEach(element => {
-        filters.push(element.value);
-      });
-      return filters;
-    }
-  },
+
   data() {
     return {
-      filteredData: [],
       search: "",
       stacks: [
         {
@@ -108,30 +93,18 @@ export default {
       ]
     };
   },
-  methods: {
-    getfilteredData: function() {
-      this.filteredData = this.$page.posts.edges;
-      console.log("HEI " + typeof this.filteredData.node);
-      let filteredDataByfilters = [];
-      let filteredDataBySearch = [];
-
-      // first check if filters where selected
-      /*       if (this.selectedFilters.length > 0) {
-        filteredDataByfilters= this.filteredData.filter(obj => this.selectedFilters.every(val => obj.stack.indexOf(val) >= 0));
-        this.filteredData = filteredDataByfilters;
-      } */
-      // then filter according to keyword, for now this only affects the name attribute of each data
-
-      if (this.search !== "") {
-        filteredDataBySearch = this.filteredData.filter(
-          obj => obj.name.indexOf(this.search.toLowerCase()) >= 0
+  computed: {
+    filteredData() {
+      return this.$page.posts.edges.filter(edge => {
+        return (
+          edge.node.name.toLowerCase().indexOf(this.search.toLowerCase()) >=
+            0 ||
+          edge.node.team.name
+            .toLowerCase()
+            .indexOf(this.search.toLowerCase()) >= 0
         );
-        this.filteredData = filteredDataBySearch;
-      }
+      });
     }
-  },
-  mounted() {
-    this.getfilteredData();
   }
 };
 </script>
