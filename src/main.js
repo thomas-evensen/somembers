@@ -5,8 +5,6 @@ import DefaultLayout from '~/layouts/Default.vue'
 import VueLazyload from 'vue-lazyload';
 import '~/assets/styles.css';
 require("typeface-open-sans");
-require("normalize.css");
-
 
 export default function (Vue, {
     router,

@@ -2,10 +2,10 @@
   <div class="card">
     <g-link :to="item.node.slug">
       <figure>
-        <img :src="item.node.image" :alt="`Bilde av ${item.node.name}`" />
-        <figcaption>
-          <h1 class="cutText">{{ item.node.name }}</h1>
-          <h3 class="cutText">{{ item.node.team.name }}</h3>
+        <img v-lazy="item.node.image" :alt="`Bilde av ${item.node.name}`" />
+        <figcaption class="font-sans text-white w-11/12">
+          <h2 class="cutText text-2xl font-bold">{{ item.node.name }}</h2>
+          <h3 class="cutText text-lg font-light">{{ item.node.team.name }}</h3>
         </figcaption>
       </figure>
     </g-link>
@@ -17,12 +17,6 @@
 
 <script>
 export default {
-  filters: {
-    // this filter will can be used to capitalize a word
-    capitalize: item => {
-      return item.toUpperCase();
-    }
-  },
   props: {
     // this component expects a prop of type object
     item: {
@@ -114,24 +108,5 @@ export default {
   z-index: -1;
   border-radius: 1rem;
   filter: blur(10px);
-}
-
-.card > a > figure > figcaption > h1,
-h3 {
-  font-family: "Open Sans", "Source Sans Pro", sans-serif;
-  color: #fff;
-  width: 90%;
-  line-height: normal;
-  margin: 0px;
-}
-
-.card > a > figure > figcaption > h1 {
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.card > a > figure > figcaption > h3 {
-  font-size: 1.1rem;
-  font-weight: 300;
 }
 </style>

@@ -6,4 +6,7 @@
 
 module.exports = {
     siteName: 'SoMembers',
+    plugins: [{
+        use: 'gridsome-plugin-tailwindcss'
+    }]
 }

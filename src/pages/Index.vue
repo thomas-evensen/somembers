@@ -1,20 +1,26 @@
 <template>
   <Layout>
-    <section class="top">
-      <h1>Våre medlemmer</h1>
-      <nav>
-        <g-link to="/">Medlemmer</g-link>
-        <g-link to="/teams">Virksomheter</g-link>
-      </nav>
-      <nav>Tag1 Tag2 Tag 3</nav>
+    <section class="w-full mt-20 mb-10 lg:my-10 lg:w-3/5 lg:mx-auto lg:text-center">
+      <h1 class="font-sans text-4xl font-bold mb-8">Våre medlemmer</h1>
 
       <form>
-        <div>
-          <div>
-            <input type="text" placeholder="Enter keyword  ..." v-model="search" />
-          </div>
-        </div>
+        <input
+          class="font-sans mb-8 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 leading-tight focus:outline-none focus:border-blue-500"
+          type="text"
+          placeholder="Søk"
+          v-model="search"
+        />
       </form>
+      <label
+        v-for="tags in tagItems"
+        v-bind:key="tags.value"
+        v-bind:style=" tags.checked ? 'color: #fff; background-color: #4299E1' : '' "
+        :for="tags.value"
+        class="cursor-pointer inline-block font-sans mr-2 border border-blue-500 rounded-full px-2 py-1 mb-4 text-sm text-blue-500 focus:outline-none"
+      >
+        <input v-model="tags.checked" type="checkbox" class="hidden" :id="tags.value" />
+        {{tags.value}}
+      </label>
     </section>
 
     <section class="members">
@@ -34,6 +40,9 @@
                     image
                     created
                     priority
+                    customProps {
+                      Tema
+                    }
                     team {
                         name
                     }
@@ -45,11 +54,13 @@
 
 <script>
 import MemberCard from "~/components/MemberCard";
+import tags from "~/tags.js";
 
 export default {
   metaInfo: {
     title: "SoMembers"
   },
+
   components: {
     "member-card": MemberCard
   },
@@ -57,46 +68,20 @@ export default {
   data() {
     return {
       search: "",
-      stacks: [
-        {
-          checked: false,
-          value: "language"
-        },
-        {
-          checked: false,
-          value: "framework"
-        },
-        {
-          checked: false,
-          value: "frontend"
-        },
-        {
-          checked: false,
-          value: "backend"
-        },
-        {
-          checked: false,
-          value: "mobile"
-        },
-        {
-          checked: false,
-          value: "web"
-        },
-        {
-          checked: false,
-          value: "hybrid"
-        },
-        {
-          checked: false,
-          value: "database"
-        }
-      ]
+      tagItems: tags
     };
   },
+
   computed: {
     filteredData() {
       return this.$page.posts.edges.filter(edge => {
         return (
+          edge.node.customProps.Tema.every(
+            val => this.selectTags.indexOf(val) >= 0
+          ) ||
+          /*        Object.entries(edge.node.customProps.Tema).forEach(
+            val => this.selectTags.indexOf(val) >= 0
+          ) || */
           edge.node.name.toLowerCase().indexOf(this.search.toLowerCase()) >=
             0 ||
           edge.node.team.name
@@ -104,20 +89,22 @@ export default {
             .indexOf(this.search.toLowerCase()) >= 0
         );
       });
+    },
+    selectTags() {
+      let checkedTags = [];
+      let filterTags = this.tagItems.filter(obj => obj.checked);
+      filterTags.forEach(element => {
+        checkedTags.push(element.value);
+      });
+      return checkedTags;
     }
   }
 };
 </script>
 
 <style scoped>
-.top {
-  height: 300px;
-  width: 100%;
-}
-
 .members {
-  padding: 0.5rem;
-  margin-top: 40px;
+  margin-top: 0px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-row-gap: 3rem;

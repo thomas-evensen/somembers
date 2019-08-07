@@ -1,15 +1,10 @@
 <template>
   <Layout>
-  	<section>
-      <h2>
-        {{ $page.member.name }}
-      </h2> 
-       <img v-if="$page.member.image" :src="$page.member.image" class="object-cover" />
-       <img v-else src="../assets/default-profile.png" class="object-cover" />
-       <p>
-       	{{ $page.member.bio }}
-       </p>
-   </section>
+    <section>
+      <h2>{{ $page.member.name }}</h2>
+      <img :src="$page.member.image" class="object-cover" />
+      <p>{{ $page.member.bio }}</p>
+    </section>
   </Layout>
 </template>
 
@@ -36,11 +31,10 @@ query Member ($id: String!){
 <script>
 export default {
   metaInfo: {
-    title: 'Details'
+    title: "Details"
   }
-}
+};
 </script>
 
 <style>
-
 </style>
