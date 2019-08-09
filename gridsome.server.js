@@ -48,13 +48,13 @@ module.exports = function (api) {
         const members = store.addContentType({
             typeName: 'Member',
             route: ":slug_raw"
-        })
+        });
 
         // create teams collection
         const teams = store.addContentType({
             typeName: 'Team',
             route: "team/:slug_raw"
-        })
+        });
 
         // function to set priority so that profiles with images is shown before those without
         const setPriority = url => {
@@ -76,11 +76,11 @@ module.exports = function (api) {
                 return hide = item.hide ? true : false;
             }
             return false;
-        }
+        };
 
         const getPrivacyOptions = item => {
 
-            let obj = {}
+            let obj = {};
 
             // checks if the object exist as it registers as undefined if the user hasn't logget into the portal
             if (typeof item === "undefined") {
@@ -92,7 +92,19 @@ module.exports = function (api) {
                 obj.hidePublicProfiles = item.hidePublicProfiles ? true : false;
                 return obj;
             }
-        }
+        };
+
+        const getTopics = item => {
+
+            let obj = [];
+
+            // checks if the object exist as it registers as undefined if no custom properties has been set
+            if (typeof item !== "undefined") {
+                if (item.Tema && item.Tema.length > 0)
+                    obj = item.Tema;
+            }
+            return obj;
+        };
 
 
         // store data in members collection by iterating member data
@@ -100,7 +112,7 @@ module.exports = function (api) {
 
             // skip member if privacy is set to hidden
             if (isProfileHidden(item.portalPrivacy)) {
-                continue
+                continue;
             }
 
             // gets the privacy options
@@ -108,6 +120,9 @@ module.exports = function (api) {
 
             // gets view order priorities
             let memberPriority = setPriority(item.image);
+
+            // gets the topic tags
+            let topicTags = getTopics(item.properties);
 
             // slugify the member name to use as route
             let slug = slugify(item.name);
@@ -123,7 +138,7 @@ module.exports = function (api) {
                 tags: item.tags,
                 created: item.createdAt,
                 bio: item.description,
-                customProps: item.properties,
+                topics: topicTags,
                 twitter: item.twitterHandle,
                 linkedin: item.linkedin,
                 privacy: privacyOptions,
@@ -136,7 +151,7 @@ module.exports = function (api) {
 
             // skip team if privacy is set to hidden
             if (isProfileHidden(item.portalPrivacy)) {
-                continue
+                continue;
             }
 
             // gets the privacy options
@@ -154,7 +169,7 @@ module.exports = function (api) {
             for (const mItem of member) {
                 // skip the iteration if the member privacy is set to hidden
                 if (isProfileHidden(mItem.portalPrivacy)) {
-                    continue
+                    continue;
                 }
 
                 if (mItem.team == item._id) {
@@ -180,7 +195,7 @@ module.exports = function (api) {
                 customProps: item.properties,
                 privacy: privacyOptions,
                 teamMembers: memberProps
-            })
+            });
         }
-    })
-}
+    });
+};

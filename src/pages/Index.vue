@@ -40,9 +40,7 @@
                     image
                     created
                     priority
-                    customProps {
-                      Tema
-                    }
+                    topics
                     team {
                         name
                     }
@@ -74,20 +72,20 @@ export default {
 
   computed: {
     filteredData() {
+      let filterData = [];
+      let checkedData = [];
       return this.$page.posts.edges.filter(edge => {
-        return (
-          edge.node.customProps.Tema.every(
-            val => this.selectTags.indexOf(val) >= 0
-          ) ||
-          /*        Object.entries(edge.node.customProps.Tema).forEach(
-            val => this.selectTags.indexOf(val) >= 0
-          ) || */
-          edge.node.name.toLowerCase().indexOf(this.search.toLowerCase()) >=
-            0 ||
-          edge.node.team.name
-            .toLowerCase()
-            .indexOf(this.search.toLowerCase()) >= 0
-        );
+        let foundName = this.searchName(edge);
+        let foundTeam = this.searchTeam(edge);
+        let foundTag = this.searchTag(edge);
+        let result = false;
+
+        if (!foundTag && this.search.length >= 0) {
+          result = false;
+        } else if (foundName || foundTeam) {
+          result = true;
+        }
+        return result;
       });
     },
     selectTags() {
@@ -97,6 +95,21 @@ export default {
         checkedTags.push(element.value);
       });
       return checkedTags;
+    }
+  },
+  methods: {
+    searchName(obj) {
+      return (
+        obj.node.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0
+      );
+    },
+    searchTeam(obj) {
+      return (
+        obj.node.team.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0
+      );
+    },
+    searchTag(obj) {
+      return this.selectTags.every(v => obj.node.topics.includes(v));
     }
   }
 };
