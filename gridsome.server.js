@@ -133,7 +133,7 @@ module.exports = function (api) {
                 name: item.name,
                 email: item.email,
                 phone: item.phone,
-                image: "https://axvpdemhen.cloudimg.io/height/600/tjpg/" + item.image,
+                image: "https://axvpdemhen.cloudimg.io/height/640/tjpg/" + item.image,
                 priority: memberPriority,
                 tags: item.tags,
                 created: item.createdAt,
@@ -175,7 +175,7 @@ module.exports = function (api) {
                 if (mItem.team == item._id) {
                     memberProps.members.push({
                         name: mItem.name,
-                        image: mItem.image,
+                        image: "https://axvpdemhen.cloudimg.io/height/640/tjpg/" + mItem.image,
                         _id: mItem._id
                     });
                 }

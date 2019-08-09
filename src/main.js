@@ -17,6 +17,16 @@ export default function (Vue, {
         observer: true
     });
 
+    head.link.push({
+        rel: 'preconnect',
+        href: 'https://axvpdemhen.cloudimg.io'
+    });
+
+    head.link.push({
+        rel: 'dns-prefetch',
+        href: 'https://axvpdemhen.cloudimg.io'
+    });
+
     head.meta.push({
         name: 'keywords',
         content: 'SoCentral, Inkubator, Entreprenører, Incubator, Social, Societal, Members'

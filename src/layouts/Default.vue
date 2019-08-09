@@ -5,10 +5,7 @@
         <img class="w-32 md:w-40" src="../assets/logo.png" alt="SoCentral logo" />
       </a>
       <div>
-        <g-link
-          class="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-4 rounded"
-          to="/teams"
-        >Se bedrifter</g-link>
+        <g-link class="bg-blue-700 text-white font-light py-2 px-4 rounded" to="/teams">Se bedrifter</g-link>
       </div>
     </header>
     <slot />
