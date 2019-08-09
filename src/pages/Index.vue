@@ -1,22 +1,23 @@
 <template>
   <Layout>
-    <section class="w-full mt-20 mb-10 lg:my-10 lg:w-3/5 lg:mx-auto lg:text-center">
+    <section class="container w-full mt-20 mb-10 lg:my-10 lg:w-3/5 lg:mx-auto lg:text-center">
       <h1 class="font-sans text-4xl font-bold mb-8">Våre medlemmer</h1>
-
-      <form>
+      <div>
         <input
           class="font-sans mb-8 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 leading-tight focus:outline-none focus:border-blue-500"
           type="text"
           placeholder="Søk"
           v-model="search"
+          aria-label="Søk i medlemsoversikten"
         />
-      </form>
+      </div>
       <label
+        :aria-label="`Filtrer på medlemmer som jobber med ${tags.value}`"
         v-for="tags in tagItems"
         v-bind:key="tags.value"
-        v-bind:style=" tags.checked ? 'color: #fff; background-color: #4299E1' : '' "
+        v-bind:style=" tags.checked ? 'color: #fff; background-color: #2b6cb0' : '' "
         :for="tags.value"
-        class="cursor-pointer inline-block font-sans mr-2 border border-blue-500 rounded-full px-2 py-1 mb-4 text-sm text-blue-500 focus:outline-none"
+        class="cursor-pointer inline-block font-sans mr-2 border border-blue-700 rounded-full px-2 py-1 mb-4 text-sm text-blue-700 focus:outline-none"
       >
         <input v-model="tags.checked" type="checkbox" class="hidden" :id="tags.value" />
         {{tags.value}}
@@ -119,7 +120,7 @@ export default {
 .members {
   margin-top: 0px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-row-gap: 3rem;
   grid-column-gap: 1rem;
   justify-items: center;

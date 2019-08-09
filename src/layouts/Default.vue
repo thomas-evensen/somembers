@@ -1,8 +1,8 @@
 <template>
   <div>
     <header class="flex items-center w-full lg:w-3/5 lg:mx-auto">
-      <a class="flex-1" href="https://www.socentral.no">
-        <img class="w-32 md:w-40" src="../assets/logo.png" />
+      <a class="flex-1" href="https://www.socentral.no" aria-label="Gå til SoCentral sin nettside">
+        <img class="w-32 md:w-40" src="../assets/logo.png" alt="SoCentral logo" />
       </a>
       <div>
         <g-link

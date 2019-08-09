@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <g-link :to="item.node.slug">
+  <!--   <div class="card">
+    <g-link :to="item.node.slug" :aria-label="`Les mer om ${item.node.name}`">
       <figure>
         <img v-lazy="item.node.image" :alt="`Bilde av ${item.node.name}`" />
         <figcaption class="font-sans text-white w-11/12">
@@ -9,10 +9,26 @@
         </figcaption>
       </figure>
     </g-link>
-    <div
+     <div
       v-bind:style="{ 'background': 'url('+ item.node.image +') no-repeat center center/cover' }"
     ></div>
-  </div>
+  </div>-->
+
+  <g-link class="card" :to="item.node.slug" :aria-label="`Les mer om ${item.node.name}`">
+    <img
+      class="card-img w-full object-cover rounded-lg"
+      v-lazy="item.node.image"
+      :alt="`Bilde av ${item.node.name}`"
+    />
+    <div class="card-title font-sans">
+      <h2
+        class="text-3xl mt-3 -mb-1 font-base cutText"
+        :to="item.node.slug"
+        :aria-label="`Les mer om ${item.node.name}`"
+      >{{item.node.name}}</h2>
+      <h3 class="text-base cutText font-thin">{{ item.node.team.name }}</h3>
+    </div>
+  </g-link>
 </template>
 
 <script>
@@ -29,10 +45,27 @@ export default {
 
 <style scoped>
 .card {
+  width: 320px;
+}
+
+.card-img {
+  height: 320px;
+}
+
+.card-line {
+  height: 1px;
+  width: 50px;
+  background-color: #1f1f1f;
+}
+
+/* .card {
   width: 300px;
   height: 400px;
   border-radius: 1rem;
   position: relative;
+-webkit-box-shadow: 0px 7px 15px 0px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 7px 15px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 7px 15px 0px rgba(0, 0, 0, 0.4);
 }
 
 .card > a > figure {
@@ -97,9 +130,9 @@ export default {
   );
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000", endColorstr="#ffffff", GradientType=1);
   width: 100%;
-}
+} */
 
-.card > div {
+/* .card > div {
   content: "";
   position: absolute;
   width: 100%;
@@ -108,5 +141,5 @@ export default {
   z-index: -1;
   border-radius: 1rem;
   filter: blur(10px);
-}
+} */
 </style>

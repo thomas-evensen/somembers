@@ -16,4 +16,14 @@ export default function (Vue, {
     Vue.use(VueLazyload, {
         observer: true
     });
+
+    head.meta.push({
+        name: 'keywords',
+        content: 'SoCentral, Inkubator, Entreprenører, Incubator, Social, Societal, Members'
+    });
+
+    head.meta.push({
+        name: 'description',
+        content: 'Se oversikt over alle medlemmer i SoCentral sitt miljø for samfunnsinnvoasjon.'
+    });
 }

@@ -133,7 +133,7 @@ module.exports = function (api) {
                 name: item.name,
                 email: item.email,
                 phone: item.phone,
-                image: "https://axvpdemhen.cloudimg.io/height/400/n/" + item.image,
+                image: "https://axvpdemhen.cloudimg.io/height/600/tjpg/" + item.image,
                 priority: memberPriority,
                 tags: item.tags,
                 created: item.createdAt,
