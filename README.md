@@ -1,14 +1,7 @@
-# Default starter for Gridsome
+# Code for medlem.socentral.no
 
-This is the project you get when you run `gridsome create new-project`.
+This is a site for showcasing the members and teams at SoCentral.
 
-### 1. Install Gridsome CLI tool if you don't have
+This site is a static gridsome-site using Tailwind and Vue. It gets data from SoCentrals instance of [OfficeRnD](https://wwww.officernd.com).
 
-`npm install --global @gridsome/cli`
-
-### 2. Create a Gridsome project
-
-1. `gridsome create my-gridsome-site` to install default starter
-2. `cd my-gridsome-site` to open the folder
-3. `gridsome develop` to start a local dev server at `http://localhost:8080`
-4. Happy coding 🎉🙌
+Membership privacy (show/no-show) is enabled from the membership portal.
