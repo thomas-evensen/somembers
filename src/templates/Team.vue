@@ -44,7 +44,8 @@
         </span>
       </div>
 
-      <div class="mt-8">
+      <div class="mt-8" v-if="$page.team.topics.length>0">
+        <h3 class="text-lg mb-2 font-bold">Temaer</h3>
         <span
           class="inline-block mt-2 mr-2 text-sm bg-gray-700 text-white py-2 px-4 rounded-full"
           v-for="topics in $page.team.topics"
@@ -53,6 +54,7 @@
       </div>
 
       <div class="mt-8">
+        <h3 class="text-lg mb-2 font-bold">Ansatte</h3>
         <span
           class="inline-block mt-2 mr-2 text-sm bg-gray-700 text-white py-2 px-4 rounded-full"
           v-for="members in $page.team.teamMembers.members"

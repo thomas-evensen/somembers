@@ -73,12 +73,22 @@
         </span>
       </div>
 
-      <div class="mt-8">
+      <div class="mt-8" v-if="$page.member.tags.length>0">
+        <h3 class="text-lg mb-2 font-bold">Tags</h3>
         <span
           class="inline-block mt-2 mr-2 text-sm bg-gray-700 text-white py-2 px-4 rounded-full"
           v-for="tags in $page.member.tags"
           v-bind:key="tags"
         >{{tags}}</span>
+      </div>
+
+      <div class="mt-8" v-if="$page.member.topics.length>0">
+        <h3 class="text-lg mb-2 font-bold">Temaer</h3>
+        <span
+          class="inline-block mt-2 mr-2 text-sm bg-gray-700 text-white py-2 px-4 rounded-full"
+          v-for="topics in $page.member.topics"
+          v-bind:key="topics"
+        >{{topics}}</span>
       </div>
     </section>
   </Layout>
@@ -101,6 +111,7 @@ query Member ($id: String!){
     }
     teamName
     teamSlug
+    topics
   }
 }
 </page-query>
