@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    background-color: rgb(250, 250, 250);
+    padding: 25px;
+}
+
 .cutText {
     text-overflow: ellipsis;
     white-space: nowrap;

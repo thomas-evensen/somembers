@@ -5,10 +5,20 @@
         <img class="w-32 md:w-40" src="../assets/logo.png" alt="SoCentral logo" />
       </a>
       <div>
-        <g-link class="bg-blue-700 text-white font-light py-2 px-4 rounded" to="/teams">Se bedrifter</g-link>
+        <a
+          class="bg-blue-700 text-white font-light py-2 px-4 rounded"
+          href="https://www.socentral.no/inkubator"
+          aria-label="Gå til SoCentral sin inkubatorside for å bli medlem"
+        >Bli medlem</a>
       </div>
     </header>
     <slot />
+    <div class="mx-auto mt-6 text-center">
+      <a
+        href="https://github.com/thomas-evensen/somembers"
+        class="text-gray-600 font-light italic text-xs"
+      >Source code at Github</a>
+    </div>
   </div>
 </template>
 
@@ -23,8 +33,4 @@ query {
 
 
 <style>
-body {
-  background-color: rgb(250, 250, 250);
-  padding: 25px;
-}
 </style>
