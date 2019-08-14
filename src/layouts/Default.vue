@@ -6,7 +6,7 @@
       </a>
       <div>
         <a
-          class="bg-blue-700 text-white font-light py-2 px-4 rounded"
+          class="bg-blue-700 text-white font-light py-2 px-4 rounded font-sans"
           href="https://www.socentral.no/inkubator"
           aria-label="Gå til SoCentral sin inkubatorside for å bli medlem"
         >Bli medlem</a>

@@ -1,21 +1,16 @@
 <template>
   <Layout>
     <section class="container w-full mt-20 mb-10 lg:my-10 lg:w-3/5 lg:mx-auto lg:text-center">
-      <h1 class="font-sans text-4xl font-bold mb-4 lg:mb-2 leading-snug">Våre medlemmer</h1>
-      <g-link
-        class="inline-block bg-gray-800 text-white text-sm rounded py-1 px-2 mb-6"
-        to="/teams"
-        aria-label="Bytt til oversikt over medlemsbedrifter"
-      >Se bedrifter</g-link>
-      <div>
-        <input
-          class="font-sans mb-8 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 focus:outline-none focus:border-blue-500"
-          type="text"
-          placeholder="Søk"
-          v-model="search"
-          aria-label="Søk i medlemsoversikten"
-        />
-      </div>
+      <title-section text="Våre medlemmer"></title-section>
+      <page-switch text="Se bedrifter" link="/teams"></page-switch>
+      <input
+        class="block lg:mx-auto font-sans mb-8 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 focus:outline-none focus:border-blue-500"
+        type="text"
+        placeholder="Søk"
+        v-model="search"
+        aria-label="Søk i medlemsoversikten"
+      />
+
       <label
         :aria-label="`Filtrer på medlemmer som jobber med ${tags.value}`"
         v-for="tags in tagItems"
@@ -47,9 +42,7 @@
                     created
                     priority
                     topics
-                    team {
-                        name
-                    }
+                    teamName
                 }
             }
         }
@@ -57,16 +50,21 @@
 </page-query>
 
 <script>
+import TitleSection from "~/components/TitleSection.vue";
+import PageSwitch from "~/components/PageSwitch.vue";
 import MemberCard from "~/components/MemberCard";
+
 import tags from "~/tags.js";
 
 export default {
   metaInfo: {
-    title: "SoMembers"
+    title: "Hjem"
   },
 
   components: {
-    "member-card": MemberCard
+    "member-card": MemberCard,
+    "title-section": TitleSection,
+    "page-switch": PageSwitch
   },
 
   data() {
@@ -78,8 +76,6 @@ export default {
 
   computed: {
     filteredData() {
-      let filterData = [];
-      let checkedData = [];
       return this.$page.posts.edges.filter(edge => {
         let foundName = this.searchName(edge);
         let foundTeam = this.searchTeam(edge);
@@ -111,7 +107,7 @@ export default {
     },
     searchTeam(obj) {
       return (
-        obj.node.team.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0
+        obj.node.teamName.toLowerCase().indexOf(this.search.toLowerCase()) >= 0
       );
     },
     searchTag(obj) {

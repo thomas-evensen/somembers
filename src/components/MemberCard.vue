@@ -15,7 +15,7 @@
       >
         <g-link :to="item.node.slug" :aria-label="`Les mer om ${item.node.name}`">{{item.node.name}}</g-link>
       </h2>
-      <h3 class="text-base cutText font-thin">{{ item.node.team.name }}</h3>
+      <h3 class="text-base cutText font-thin">{{ item.node.teamName }}</h3>
     </div>
   </div>
 </template>

@@ -126,6 +126,7 @@ module.exports = function (api) {
 
             // slugify the member name to use as route
             let slug = slugify(item.name);
+            let teamSlug = slugify(item.team.name);
 
             // add values to the members collection
             members.addNode({
@@ -142,7 +143,8 @@ module.exports = function (api) {
                 twitter: item.twitterHandle,
                 linkedin: item.linkedin,
                 privacy: privacyOptions,
-                team: item.team
+                teamName: item.team.name,
+                teamSlug: teamSlug
             });
         }
 
@@ -163,21 +165,30 @@ module.exports = function (api) {
             // slugify the team name to use as route
             let slug = slugify(item.name);
 
+            // gets the topic tags
+            let topicTags = getTopics(item.properties);
+
             // find team members and relevent values
             const memberProps = {};
             memberProps.members = [];
             for (const mItem of member) {
+
+                // console.log(mItem.team._id);
                 // skip the iteration if the member privacy is set to hidden
                 if (isProfileHidden(mItem.portalPrivacy)) {
                     continue;
                 }
 
-                if (mItem.team == item._id) {
+                if (mItem.team._id === item._id) {
+                    let memberSlug = slugify(mItem.name);
+
                     memberProps.members.push({
                         name: mItem.name,
-                        image: "https://axvpdemhen.cloudimg.io/height/640/tjpg/" + mItem.image,
-                        _id: mItem._id
+                        image: "https://axvpdemhen.cloudimg.io/height/320/tjpg/" + mItem.image,
+                        slug: memberSlug
                     });
+
+                    console.log(mItem.name + " - " + memberSlug + " - " + mItem.image);
                 }
             }
 
@@ -187,12 +198,10 @@ module.exports = function (api) {
                 start: item.startDate,
                 bio: item.description,
                 twitter: item.twitterHandle,
-                email: item.email,
                 url: item.url,
                 logo: item.image,
-                tags: item.tags,
+                topics: topicTags,
                 priority: teamPriority,
-                customProps: item.properties,
                 privacy: privacyOptions,
                 teamMembers: memberProps
             });
