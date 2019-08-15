@@ -134,11 +134,11 @@ module.exports = function (api) {
             // slugify the member name to use as route
             let slug = slugify(item.name, {
                 lower: true,
-                remove: /[*+~.()'"?!:@]/g
+                remove: /[*+~.()/'"?!:@]/g
             });
             let teamSlug = slugify(item.team.name, {
                 lower: true,
-                remove: /[*+~.()'"?!:@]/g
+                remove: /[*+~.()/'"?!:@]/g
             });
 
             // add values to the members collection
@@ -178,7 +178,7 @@ module.exports = function (api) {
             // slugify the team name to use as route
             let slug = slugify(item.name, {
                 lower: true,
-                remove: /[*+~.()'"?!:@]/g
+                remove: /[*+~.()/'"?!:@]/g
             });
 
             // gets the topic tags
@@ -201,7 +201,7 @@ module.exports = function (api) {
                 if (mItem.team._id === item._id) {
                     let memberSlug = slugify(mItem.name, {
                         lower: true,
-                        remove: /[*+~.()'"?!:@]/g
+                        remove: /[*+~.()/'"?!:@]/g
                     });
 
                     memberProps.members.push({
