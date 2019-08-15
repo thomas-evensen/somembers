@@ -2,7 +2,7 @@
   <Layout>
     <section class="container w-full mt-20 mb-10 lg:my-10 lg:w-3/5 lg:mx-auto lg:text-center">
       <title-section text="Våre medlemmer"></title-section>
-      <page-switch text="Se bedrifter" link="/teams"></page-switch>
+      <page-switch text="Se virksomheter" link="/teams"></page-switch>
       <input
         class="block lg:mx-auto font-sans mb-8 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 focus:outline-none focus:border-blue-500"
         type="text"
@@ -24,8 +24,8 @@
       </label>
     </section>
 
-    <section class="members">
-      <member-card v-for="item in filteredData" :key="item.node.id" :item="item"></member-card>
+    <section class="cards">
+      <profile-card v-for="item in filteredData" :key="item.node.id" :item="item"></profile-card>
     </section>
   </Layout>
 </template>
@@ -52,7 +52,7 @@
 <script>
 import TitleSection from "~/components/TitleSection.vue";
 import PageSwitch from "~/components/PageSwitch.vue";
-import MemberCard from "~/components/MemberCard";
+import ProfileCard from "~/components/ProfileCard";
 
 import tags from "~/tags.js";
 
@@ -62,7 +62,7 @@ export default {
   },
 
   components: {
-    "member-card": MemberCard,
+    "profile-card": ProfileCard,
     "title-section": TitleSection,
     "page-switch": PageSwitch
   },
@@ -118,7 +118,7 @@ export default {
 </script>
 
 <style scoped>
-.members {
+.cards {
   margin-top: 0px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));

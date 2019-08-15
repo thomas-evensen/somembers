@@ -15,7 +15,7 @@ export default function (Vue, {
     Vue.component('Layout', DefaultLayout);
     Vue.use(VueLazyload, {
         observer: true,
-        loading: '~/assets/loading.gif'
+        loading: '../assets/loading.gif'
     });
 
     head.link.push({

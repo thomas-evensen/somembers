@@ -5,12 +5,12 @@
       aria-label="Gå tilbake til oversikten"
     >
       <div class="text-right">
-        <g-link to="/" class="underline text-blue-700">Tilbake til oversikt</g-link>
+        <g-link to="/teams/" class="underline text-blue-700">Tilbake til virksomheter</g-link>
       </div>
       <h2 class="mt-10 text-4xl leading-snug font-bold">{{ $page.team.name }}</h2>
 
       <div class="lg:flex mt-8">
-        <img class="rounded-lg object-cover card-img" :src="$page.team.logo" />
+        <img class="rounded-lg object-contain card-img bg-white" :src="$page.team.image" />
         <p class="mt-8 lg:mt-0 lg:pl-5 leading-relaxed">{{ $page.team.bio }}</p>
       </div>
 
@@ -54,12 +54,13 @@
       </div>
 
       <div class="mt-8">
-        <h3 class="text-lg mb-2 font-bold">Ansatte</h3>
-        <span
-          class="inline-block mt-2 mr-2 text-sm bg-gray-700 text-white py-2 px-4 rounded-full"
+        <h3 class="text-lg mb-2 font-bold">Medlemmer</h3>
+        <g-link
+          class="inline-block mt-2 mr-2 text-sm bg-blue-700 text-white py-2 px-4 rounded-full"
           v-for="members in $page.team.teamMembers.members"
           v-bind:key="members.slug"
-        >{{members.name}}</span>
+          :to="`/${members.slug}`"
+        >{{members.name}}</g-link>
       </div>
     </section>
   </Layout>
@@ -69,7 +70,7 @@
 query Team ($id: String!){
   team(id: $id) {
     name
-    logo
+    image
     bio
     url
     twitter
@@ -82,7 +83,6 @@ query Team ($id: String!){
       members {
         name
         slug
-        image
       }
     }
   }

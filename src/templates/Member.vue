@@ -5,17 +5,17 @@
       aria-label="Gå tilbake til oversikten"
     >
       <div class="text-right">
-        <g-link to="/" class="underline text-blue-700">Tilbake til oversikt</g-link>
+        <g-link to="/" class="underline text-blue-700">Tilbake til medlemmer</g-link>
       </div>
       <h2 class="mt-10 text-4xl leading-snug font-bold">{{ $page.member.name }}</h2>
       <g-link
-        :to="`./team/${$page.member.teamSlug}`"
+        :to="`teams/${$page.member.teamSlug}`"
         class="block mt-2 lg:mt-2 text-xl font-light underline"
         :aria-label="`Les mer om ${$page.member.teamName}`"
       >{{$page.member.teamName}}</g-link>
 
       <div class="lg:flex mt-8">
-        <img class="rounded-lg object-cover card-img" :src="$page.member.image" />
+        <img class="rounded-lg object-cover card-img bg-white" :src="$page.member.image" />
         <p class="mt-8 lg:mt-0 lg:pl-5 leading-relaxed">{{ $page.member.bio }}</p>
       </div>
 

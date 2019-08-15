@@ -47,13 +47,13 @@ module.exports = function (api) {
         // create members collection
         const members = store.addContentType({
             typeName: 'Member',
-            route: ":slug_raw"
+            route: ":slug"
         });
 
         // create teams collection
         const teams = store.addContentType({
             typeName: 'Team',
-            route: "team/:slug_raw"
+            route: "teams/:slug"
         });
 
         // function to set priority so that profiles with images is shown before those without
@@ -106,6 +106,13 @@ module.exports = function (api) {
             return obj;
         };
 
+        // function to fix urls without http(s)
+        const fixUrl = item => {
+            if (item) {
+                return item.startsWith("http") ? item : "//" + item;
+            } else return false;
+        };
+
 
         // store data in members collection by iterating member data
         for (const item of member) {
@@ -125,8 +132,14 @@ module.exports = function (api) {
             let topicTags = getTopics(item.properties);
 
             // slugify the member name to use as route
-            let slug = slugify(item.name);
-            let teamSlug = slugify(item.team.name);
+            let slug = slugify(item.name, {
+                lower: true,
+                remove: /[*+~.()'"?!:@]/g
+            });
+            let teamSlug = slugify(item.team.name, {
+                lower: true,
+                remove: /[*+~.()'"?!:@]/g
+            });
 
             // add values to the members collection
             members.addNode({
@@ -163,10 +176,16 @@ module.exports = function (api) {
             let teamPriority = setPriority(item.image);
 
             // slugify the team name to use as route
-            let slug = slugify(item.name);
+            let slug = slugify(item.name, {
+                lower: true,
+                remove: /[*+~.()'"?!:@]/g
+            });
 
             // gets the topic tags
             let topicTags = getTopics(item.properties);
+
+            // fix urls withour http(s)://
+            let fixedUrl = fixUrl(item.url);
 
             // find team members and relevent values
             const memberProps = {};
@@ -180,26 +199,26 @@ module.exports = function (api) {
                 }
 
                 if (mItem.team._id === item._id) {
-                    let memberSlug = slugify(mItem.name);
+                    let memberSlug = slugify(mItem.name, {
+                        lower: true,
+                        remove: /[*+~.()'"?!:@]/g
+                    });
 
                     memberProps.members.push({
                         name: mItem.name,
-                        image: "https://axvpdemhen.cloudimg.io/height/320/tjpg/" + mItem.image,
                         slug: memberSlug
                     });
-
-                    console.log(mItem.name + " - " + memberSlug + " - " + mItem.image);
                 }
             }
 
             teams.addNode({
                 slug: slug,
                 name: item.name,
-                start: item.startDate,
+                created: item.startDate,
                 bio: item.description,
                 twitter: item.twitterHandle,
-                url: item.url,
-                logo: item.image,
+                url: fixedUrl,
+                image: "https://axvpdemhen.cloudimg.io/height/640/tjpg/" + item.image,
                 topics: topicTags,
                 priority: teamPriority,
                 privacy: privacyOptions,
