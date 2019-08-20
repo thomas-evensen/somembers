@@ -4,7 +4,6 @@
       <g-link to="/" class="flex-1" aria-label="Gå til startsiden">
         <img class="w-32 md:w-40" src="../assets/logo.png" alt="SoCentral logo" />
       </g-link>
-
       <a
         class="bg-blue-700 text-white font-light py-2 px-4 rounded font-sans"
         href="https://www.socentral.no/inkubator"
@@ -12,12 +11,12 @@
       >Bli medlem</a>
     </header>
     <slot />
-    <div class="mx-auto mt-6 text-center">
+    <footer class="mx-auto mt-6 text-center">
       <a
         href="https://github.com/thomas-evensen/somembers"
         class="text-gray-700 font-light italic text-xs"
       >Source code at Github</a>
-    </div>
+    </footer>
   </div>
 </template>
 

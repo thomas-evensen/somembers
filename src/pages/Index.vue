@@ -12,21 +12,27 @@
       />
 
       <label
-        :aria-label="`Filtrer på medlemmer som jobber med ${tags.value}`"
-        v-for="tags in tagItems"
-        v-bind:key="tags.value"
-        v-bind:style=" tags.checked ? 'color: #fff; background-color: #2b6cb0' : '' "
-        :for="tags.value"
+        :aria-label="`Filtrer på medlemmer som jobber med ${tag.value}`"
+        v-for="tag in tagItems"
+        v-bind:key="tag.value"
+        v-bind:style=" tag.checked ? 'color: #fff; background-color: #2b6cb0' : '' "
+        :for="tag.value"
         class="cursor-pointer inline-block font-sans mr-2 border border-blue-700 rounded-full px-2 py-1 mb-4 text-sm text-blue-700 focus:outline-none"
       >
-        <input v-model="tags.checked" type="checkbox" class="hidden" :id="tags.value" />
-        {{tags.value}}
+        <input
+          v-model="tag.checked"
+          v-on:click="setTag(tag)"
+          type="checkbox"
+          class="hidden"
+          :id="tag.value"
+        />
+        {{tag.value}}
       </label>
     </section>
 
-    <section class="cards">
+    <transition-group tag="section" name="animate" class="cards">
       <profile-card v-for="item in filteredData" :key="item.node.id" :item="item"></profile-card>
-    </section>
+    </transition-group>
   </Layout>
 </template>
 
@@ -70,7 +76,8 @@ export default {
   data() {
     return {
       search: "",
-      tagItems: tags
+      tagItems: tags,
+      activeTag: ""
     };
   },
 
@@ -89,17 +96,33 @@ export default {
         }
         return result;
       });
-    },
+    }
+    /* 
+    // BACKUP IN CASE MARIE WANTS TO FILTER ON MORE THAN ONE TOPIC
     selectTags() {
-      let checkedTags = [];
+            let checkedTags = [];
       let filterTags = this.tagItems.filter(obj => obj.checked);
       filterTags.forEach(element => {
         checkedTags.push(element.value);
       });
-      return checkedTags;
-    }
+      return checkedTags; 
+    }*/
   },
   methods: {
+    setTag(obj) {
+      if (this.activeTag === obj.value) {
+        obj.checked = false;
+        this.activeTag = "";
+      } else {
+        for (let o of this.tagItems) {
+          if (this.activeTag === o.value) {
+            o.checked = false;
+            break;
+          }
+        }
+        this.activeTag = obj.value;
+      }
+    },
     searchName(obj) {
       return (
         obj.node.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0
@@ -111,20 +134,19 @@ export default {
       );
     },
     searchTag(obj) {
-      return this.selectTags.every(v => obj.node.topics.includes(v));
+      // BACKUP IN CASE MARIE WANTS TO FILTER ON MORE THAN ONE TOPIC
+      //return this.selectTags.every(v => obj.node.topics.includes(v));
+      //console.log(this.activeTag);
+
+      return this.activeTag === ""
+        ? true
+        : obj.node.topics.includes(this.activeTag);
     }
+  },
+  created() {
+    this.tagItems.forEach(o => {
+      o.checked = false;
+    });
   }
 };
 </script>
-
-<style scoped>
-.cards {
-  margin-top: 0px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  grid-row-gap: 3rem;
-  grid-column-gap: 1rem;
-  justify-items: center;
-  justify-content: space-evenly;
-}
-</style>

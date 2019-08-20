@@ -4,6 +4,7 @@
 import DefaultLayout from '~/layouts/Default.vue';
 import VueLazyload from 'vue-lazyload';
 import '~/assets/styles.css';
+import tags from "~/tags.js";
 require("typeface-open-sans");
 
 export default function (Vue, {
