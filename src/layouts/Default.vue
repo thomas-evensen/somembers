@@ -31,4 +31,21 @@ query {
 
 
 <style>
+.animate-move {
+  transition: all 0.3s ease-in-out;
+}
+
+.animate-leave-to,
+.animate-enter {
+  opacity: 0;
+}
+
+.animate-leave-active,
+.animate-enter-active {
+  transition: opacity 0.3s ease-out;
+}
+
+.animate-leave-active {
+  z-index: -10;
+}
 </style>
