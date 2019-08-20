@@ -1,14 +1,16 @@
 <template>
   <div>
-    <header class="flex items-center w-full lg:w-3/5 lg:mx-auto">
-      <g-link to="/" class="flex-1" aria-label="Gå til startsiden">
+    <header class="flex justify-end items-center w-full lg:w-3/5 lg:mx-auto">
+      <g-link to="/" class="w-32 md:w-40 mr-auto" aria-label="Gå til startsiden">
         <img class="w-32 md:w-40" src="../assets/logo.png" alt="SoCentral logo" />
       </g-link>
-      <a
-        class="bg-blue-700 text-white font-light py-2 px-4 rounded font-sans"
-        href="https://www.socentral.no/inkubator"
-        aria-label="Gå til SoCentral sin inkubatorside for å bli medlem"
-      >Bli medlem</a>
+      <div class>
+        <a
+          class="bg-blue-700 text-white font-light py-2 px-4 rounded font-sans"
+          href="https://www.socentral.no/inkubator"
+          aria-label="Gå til SoCentral sin inkubatorside for å bli medlem"
+        >Bli medlem</a>
+      </div>
     </header>
     <slot />
     <footer class="mx-auto mt-6 text-center">
@@ -31,6 +33,14 @@ query {
 
 
 <style>
+.parent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
 .animate-move {
   transition: all 0.3s ease-in-out;
 }
