@@ -110,7 +110,7 @@ module.exports = function (api) {
         const fixUrl = item => {
             if (item) {
                 return item.startsWith("http") ? item : "//" + item;
-            } else return false;
+            } else return;
         };
 
 
