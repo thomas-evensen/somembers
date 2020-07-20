@@ -9,5 +9,9 @@ module.exports = {
     siteUrl: 'https://medlem.socentral.no',
     plugins: [{
         use: 'gridsome-plugin-tailwindcss',
-    }]
+    }],
+    templates: {
+        Member: '/:slug',
+        Team: '/teams/:slug',
+    }
 };

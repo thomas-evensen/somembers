@@ -95,7 +95,7 @@
 </template>
 
 <page-query>
-query Member ($id: String!){
+query Member ($id: ID!){
   member(id: $id) {
     name
     image

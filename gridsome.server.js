@@ -45,16 +45,10 @@ module.exports = function (api) {
         });
 
         // create members collection
-        const members = store.addContentType({
-            typeName: 'Member',
-            route: ":slug"
-        });
+        const members = store.addCollection('Member');
 
         // create teams collection
-        const teams = store.addContentType({
-            typeName: 'Team',
-            route: "teams/:slug"
-        });
+        const teams = store.addCollection('Team');
 
         // function to set priority so that profiles with images is shown before those without
         const setPriority = url => {

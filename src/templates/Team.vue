@@ -66,8 +66,7 @@
   </Layout>
 </template>
 
-<page-query>
-query Team ($id: String!){
+<page-query>query Team ($id: ID!){
   team(id: $id) {
     name
     image
