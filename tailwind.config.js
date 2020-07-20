@@ -1,10 +1,10 @@
 module.exports = {
+    purge: [
+        './src/**/*.html',
+        './src/**/*.vue',
+        './src/**/*.jsx',
+    ],
     theme: {
-        purge: [
-            './src/**/*.html',
-            './src/**/*.vue',
-            './src/**/*.jsx',
-        ],
         fontFamily: {
             'sans': ['Open Sans', '-apple-system', 'BlinkMacSystemFont']
         }
