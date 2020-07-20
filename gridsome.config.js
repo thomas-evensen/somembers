@@ -9,6 +9,12 @@ module.exports = {
     siteUrl: 'https://medlem.socentral.no',
     plugins: [{
         use: 'gridsome-plugin-tailwindcss',
+        use: 'gridsome-plugin-matomo',
+        options: {
+            host: 'https://matomo.socentral.no',
+            siteId: 2,
+            disableCookies: true
+        }
     }],
     templates: {
         Member: '/:slug',
