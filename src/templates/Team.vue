@@ -44,13 +44,13 @@
         </span>
       </div>
 
-      <div class="mt-8" v-if="$page.team.topics.length>0">
-        <h3 class="text-lg mb-2 font-bold">Temaer</h3>
+      <div class="mt-8" v-if="$page.team.sdgs.length>0">
+        <h3 class="text-lg mb-2 font-bold">Bærekraftmål</h3>
         <span
           class="inline-block mt-2 mr-2 text-sm bg-gray-700 text-white py-2 px-4 rounded-full"
-          v-for="topics in $page.team.topics"
-          v-bind:key="topics"
-        >{{topics}}</span>
+          v-for="sdgs in $page.team.sdgs"
+          v-bind:key="sdgs"
+        >{{sdgs}}</span>
       </div>
 
       <div class="mt-8">
@@ -77,7 +77,7 @@
       hideContactDetails
       hidePublicProfiles
     }
-    topics
+    sdgs
     teamMembers {
       members {
         name
@@ -91,8 +91,8 @@
 <script>
 export default {
   metaInfo: {
-    title: "Team"
-  }
+    title: "Team",
+  },
 };
 </script>
 

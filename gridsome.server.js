@@ -100,6 +100,18 @@ module.exports = function (api) {
             return obj;
         };
 
+        const getSDGs = item => {
+
+            let obj = [];
+
+            // checks if the object exist as it registers as undefined if no custom properties has been set
+            if (typeof item !== "undefined") {
+                if (item.sdg && item.sdg.length > 0)
+                    obj = item.sdg;
+            }
+            return obj;
+        };
+
         // function to fix urls without http(s)
         const fixUrl = item => {
             if (item) {
@@ -124,6 +136,7 @@ module.exports = function (api) {
 
             // gets the topic tags
             let topicTags = getTopics(item.properties);
+            let sdg = getSDGs(item.properties);
 
             // slugify the member name to use as route
             let slug = slugify(item.name, {
@@ -134,7 +147,6 @@ module.exports = function (api) {
                 lower: true,
                 remove: /[*+~.()/'"?!:@]/g
             });
-
             // add values to the members collection
             members.addNode({
                 slug: slug,
@@ -147,6 +159,7 @@ module.exports = function (api) {
                 created: item.createdAt,
                 bio: item.description,
                 topics: topicTags,
+                sdgs: sdg,
                 twitter: item.twitterHandle,
                 linkedin: item.linkedin,
                 privacy: privacyOptions,
@@ -177,6 +190,7 @@ module.exports = function (api) {
 
             // gets the topic tags
             let topicTags = getTopics(item.properties);
+            let sdg = getSDGs(item.properties);
 
             // fix urls withour http(s)://
             let fixedUrl = fixUrl(item.url);
@@ -214,6 +228,7 @@ module.exports = function (api) {
                 url: fixedUrl,
                 image: process.env.API_IMAGES_TOKEN + "/height/640/tjpg/" + item.image,
                 topics: topicTags,
+                sdgs: sdg,
                 priority: teamPriority,
                 privacy: privacyOptions,
                 teamMembers: memberProps

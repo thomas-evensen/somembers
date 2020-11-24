@@ -4,11 +4,11 @@
       <g-link to="/" class="w-32 md:w-40 mr-auto" aria-label="Gå til startsiden">
         <img class="w-32 md:w-40" src="../assets/logo.png" alt="SoCentral logo" />
       </g-link>
-      <div class>
+      <div>
         <a
           class="bg-blue-700 text-white font-light py-2 px-4 rounded font-sans"
-          href="https://www.socentral.no/inkubator"
-          aria-label="Gå til SoCentral sin inkubatorside for å bli medlem"
+          href="https://www.socentral.no/medlemskap"
+          aria-label="Gå til SoCentral sin side om medlemskap"
         >Bli medlem</a>
       </div>
     </header>

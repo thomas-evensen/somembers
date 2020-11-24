@@ -4,30 +4,50 @@
       <title-section text="Våre medlemmer"></title-section>
       <page-switch text="Se virksomheter" link="/teams"></page-switch>
       <input
-        class="block lg:mx-auto font-sans mb-8 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 focus:outline-none focus:border-blue-500"
+        class="block lg:mx-auto font-sans mb-4 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 focus:outline-none focus:border-blue-500"
         type="text"
         placeholder="Søk"
         v-model="search"
         aria-label="Søk i medlemsoversikten"
       />
 
-      <label
-        :aria-label="`Filtrer på medlemmer som jobber med ${tag.value}`"
-        v-for="tag in tagItems"
-        v-bind:key="tag.value"
-        v-bind:style=" tag.checked ? 'color: #fff; background-color: #2b6cb0' : '' "
-        :for="tag.value"
-        class="cursor-pointer inline-block font-sans mr-2 border border-blue-700 rounded-full px-2 py-1 mb-4 text-sm text-blue-700 focus:outline-none"
-      >
-        <input
-          v-model="tag.checked"
-          v-on:click="setTag(tag)"
-          type="checkbox"
-          class="hidden"
-          :id="tag.value"
-        />
-        {{tag.value}}
-      </label>
+      <!--
+      <div class="mb-4">
+        <button
+          @click="sdgToggle = !sdgToggle"
+          class="font-semibold text-base text-gray-700 focus:outline-none"
+        >
+          <span v-show="!sdgToggle">&#9654;</span>
+          <span v-show="sdgToggle">&#x25BC;</span>
+
+          <span class="ml-2 underline">
+            <span v-show="!activeTag">Filtrer på bærekraftsmål</span>
+            <span v-show="activeTag">Filtrert på: {{activeTag}}</span>
+          </span>
+        </button>
+      </div>
+
+      <div v-show="sdgToggle">
+        <label
+          :aria-label="`Filtrer på medlemmer som jobber med ${tag.value}`"
+          v-for="tag in tagItems"
+          v-bind:key="tag.value"
+          v-bind:style=" tag.checked ? 'color: #fff; background-color: #2b6cb0' : '' "
+          :for="tag.value"
+          class="cursor-pointer inline-block font-sans mr-2 border border-blue-700 rounded-full px-2 py-1 mb-4 text-sm text-blue-700 focus:outline-none"
+        >
+          <input
+            v-model="tag.checked"
+            v-on:click="setTag(tag)"
+            type="checkbox"
+            class="hidden"
+            :id="tag.value"
+          />
+          {{tag.value}}
+        </label>
+      </div>
+
+      //-->
     </section>
 
     <transition-group tag="section" name="animate" class="cards">
@@ -48,6 +68,7 @@
                     created
                     priority
                     topics
+                    sdgs
                     teamName
                 }
             }
@@ -60,30 +81,31 @@ import TitleSection from "~/components/TitleSection.vue";
 import PageSwitch from "~/components/PageSwitch.vue";
 import ProfileCard from "~/components/ProfileCard";
 
-import tags from "~/tags.js";
+import SDGfilter from "~/filter.js";
 
 export default {
   metaInfo: {
-    title: "Hjem"
+    title: "Hjem",
   },
 
   components: {
     "profile-card": ProfileCard,
     "title-section": TitleSection,
-    "page-switch": PageSwitch
+    "page-switch": PageSwitch,
   },
 
   data() {
     return {
       search: "",
-      tagItems: tags,
-      activeTag: ""
+      tagItems: SDGfilter,
+      activeTag: "",
+      sdgToggle: false,
     };
   },
 
   computed: {
     filteredData() {
-      return this.$page.posts.edges.filter(edge => {
+      return this.$page.posts.edges.filter((edge) => {
         let foundName = this.searchName(edge);
         let foundTeam = this.searchTeam(edge);
         let foundTag = this.searchTag(edge);
@@ -96,7 +118,7 @@ export default {
         }
         return result;
       });
-    }
+    },
     /* 
     // BACKUP IN CASE MARIE WANTS TO FILTER ON MORE THAN ONE TOPIC
     selectTags() {
@@ -140,14 +162,14 @@ export default {
 
       return this.activeTag === ""
         ? true
-        : obj.node.topics.includes(this.activeTag);
-    }
+        : obj.node.sdgs.includes(this.activeTag);
+    },
   },
   created() {
-    this.tagItems.forEach(o => {
+    this.tagItems.forEach((o) => {
       o.checked = false;
     });
-  }
+  },
 };
 </script>
 
