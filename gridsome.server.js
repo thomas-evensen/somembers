@@ -88,18 +88,6 @@ module.exports = function (api) {
             }
         };
 
-        const getTopics = item => {
-
-            let obj = [];
-
-            // checks if the object exist as it registers as undefined if no custom properties has been set
-            if (typeof item !== "undefined") {
-                if (item.Tema && item.Tema.length > 0)
-                    obj = item.Tema;
-            }
-            return obj;
-        };
-
         const getSDGs = item => {
 
             let obj = [];
@@ -135,7 +123,7 @@ module.exports = function (api) {
             let memberPriority = setPriority(item.image);
 
             // gets the topic tags
-            let topicTags = getTopics(item.properties);
+           // let topicTags = getTopics(item.properties);
             let sdg = getSDGs(item.properties);
 
             // slugify the member name to use as route
@@ -158,7 +146,6 @@ module.exports = function (api) {
                 tags: item.tags,
                 created: item.createdAt,
                 bio: item.description,
-                topics: topicTags,
                 sdgs: sdg,
                 twitter: item.twitterHandle,
                 linkedin: item.linkedin,
@@ -189,7 +176,7 @@ module.exports = function (api) {
             });
 
             // gets the topic tags
-            let topicTags = getTopics(item.properties);
+           // let topicTags = getTopics(item.properties);
             let sdg = getSDGs(item.properties);
 
             // fix urls withour http(s)://
@@ -227,7 +214,6 @@ module.exports = function (api) {
                 twitter: item.twitterHandle,
                 url: fixedUrl,
                 image: process.env.API_IMAGES_TOKEN + "/height/640/tjpg/" + item.image,
-                topics: topicTags,
                 sdgs: sdg,
                 priority: teamPriority,
                 privacy: privacyOptions,
