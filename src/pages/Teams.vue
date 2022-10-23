@@ -4,7 +4,7 @@
       <title-section text="Våre virksomheter"></title-section>
       <page-switch text="Se medlemmer" link="/"></page-switch>
       <input
-        class="block lg:mx-auto font-sans mb-4 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 focus:outline-none focus:border-blue-500"
+        class="block lg:mx-auto font-sans mb-4 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 focus:outline-none focus:border-green-900"
         type="text"
         placeholder="Søk"
         v-model="search"

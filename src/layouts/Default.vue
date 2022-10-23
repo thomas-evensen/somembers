@@ -15,8 +15,8 @@
     <slot />
     <footer class="mx-auto mt-6 text-center">
       <a
-        href="https://github.com/thomas-evensen/somembers"
-        class="text-gray-700 font-light italic text-xs"
+        href="https://github.com/SoCentral/somembers"
+        class="text-gray-700 font-light font-serif italic text-xs"
       >Source code at Github</a>
     </footer>
   </div>

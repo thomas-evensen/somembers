@@ -4,14 +4,15 @@
       <title-section text="Våre medlemmer"></title-section>
       <page-switch text="Se virksomheter" link="/teams"></page-switch>
       <input
-        class="block lg:mx-auto font-sans mb-4 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 focus:outline-none focus:border-blue-500"
+        class="block lg:mx-auto font-sans mb-4 w-full md:w-64 border border-gray-500 rounded py-2 px-2 text-gray-800 focus:outline-none focus:border-green-900"
         type="text"
         placeholder="Søk"
         v-model="search"
         aria-label="Søk i medlemsoversikten"
       />
 
-      <!--
+<!-- SDG FILTER - PUTT I EGEN .VUE
+      
       <div class="mb-4">
         <button
           @click="sdgToggle = !sdgToggle"
@@ -46,8 +47,8 @@
           {{tag.value}}
         </label>
       </div>
+-->
 
-      //-->
     </section>
 
     <transition-group tag="section" name="animate" class="cards">
@@ -67,7 +68,6 @@
                     image
                     created
                     priority
-                    topics
                     sdgs
                     teamName
                 }

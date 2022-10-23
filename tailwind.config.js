@@ -6,7 +6,8 @@ module.exports = {
     ],
     theme: {
         fontFamily: {
-            'sans': ['Open Sans', '-apple-system', 'BlinkMacSystemFont']
+            'sans': ['Poppins', 'ui-sans-serif', 'Arial'],
+            'serif': ['Crimson Pro', 'ui-serif', 'Georgia']
         }
     }
 };

@@ -16,7 +16,7 @@
 
       <div class="lg:flex mt-8">
         <img class="rounded-lg object-cover card-img bg-white" :src="$page.member.image" />
-        <p class="mt-8 lg:mt-0 lg:pl-5 leading-relaxed">{{ $page.member.bio }}</p>
+        <p class="mt-8 lg:mt-0 lg:pl-5 leading-relaxed text-xl font-serif font-thin">{{ $page.member.bio }}</p>
       </div>
 
       <div class="mt-8">

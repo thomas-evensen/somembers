@@ -16,14 +16,14 @@
     </g-link>
 
     <g-link
-      class="block font-sans text-2xl mt-3 -mb-1 font-semibold cutText"
+      class="block font-sans text-2xl mt-3 -mb-1 font-bold cutText"
       :to="item.node.slug"
       :aria-label="`Les mer om ${item.node.name}`"
     >{{item.node.name}}</g-link>
 
     <div
       v-if="item.node.teamName"
-      class="font-sans text-base cutText font-thin"
+      class="font-sans text-base cutText font-light"
     >{{ item.node.teamName }}</div>
   </div>
 </template>
