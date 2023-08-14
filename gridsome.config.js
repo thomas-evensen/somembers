@@ -6,7 +6,7 @@
 
 module.exports = {
     siteName: 'SoMembers',
-    siteUrl: 'https://medlem.socentral.no',
+    siteUrl: 'https://medlemmer.socentral.no',
     plugins: [{
             use: 'gridsome-plugin-tailwindcss',
         },
